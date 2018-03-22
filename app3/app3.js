@@ -8,7 +8,9 @@ var connection = mysql.createConnection({
     user:'root',
     password:'0851408244Ss',
     database:'game1'
+   
     });
+    var putname;
     
     connection.connect(function (err)
     {
@@ -28,10 +30,10 @@ queryAllUser(function(err,result)
 });
 });
 
-app.get ('/user/:name',function(req,res)
+app.get ('/user/'+putname,function(req,res)
 {
 //res.end('hello');
-var Name = req.params.Name;
+var Name = req.params.putname;
 console.log(Name);
 queryUser(function(err,result)
 {
@@ -59,7 +61,7 @@ function queryAllUser (Callback)
 function queryUser (Callback)
 {
     var json = '';
-    connection.query('SELECT * FROM game1.user WHERE Name = "Jay";',function(err ,rows,fields)
+    connection.query('SELECT * FROM game1.user WHERE Name = '+putname+';',function(err ,rows,fields)
 {
     if(err)throw err;
     json = JSON.stringify(rows);
