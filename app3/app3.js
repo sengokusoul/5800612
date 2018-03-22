@@ -30,10 +30,10 @@ queryAllUser(function(err,result)
 });
 });
 
-app.get ('/user/'+putname,function(req,res)
+app.get ('/user/:Name',function(req,res)
 {
 //res.end('hello');
-var Name = req.params.putname;
+var Name = req.params.Name;
 console.log(Name);
 queryUser(function(err,result)
 {
@@ -61,7 +61,7 @@ function queryAllUser (Callback)
 function queryUser (Callback)
 {
     var json = '';
-    connection.query('SELECT * FROM game1.user WHERE Name = '+putname+';',function(err ,rows,fields)
+    connection.query('SELECT * FROM game1.user WHERE Name = '+Name+';',function(err ,rows,fields)
 {
     if(err)throw err;
     json = JSON.stringify(rows);
