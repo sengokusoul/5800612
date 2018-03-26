@@ -5,10 +5,10 @@ var app = express();
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
-    host:'localhost',
+    host:'game1.cuvupigs22zy.ap-south-1.rds.amazonaws.com',
     user:'root',
-    password:'0851408244Ss',
-    database:'game1'
+    password:'0851408244ss',
+    database:'Game1'
    
     });
     var putname;
@@ -84,7 +84,7 @@ var server = app.listen (8081,function()
 function queryAllUser (Callback)
 {
     var json = '';
-    connection.query('SELECT * FROM game1.user',function(err ,rows,fields)
+    connection.query('SELECT * FROM Game1.user',function(err ,rows,fields)
 {
     if(err)throw err;
     json = JSON.stringify(rows);
@@ -96,7 +96,7 @@ function queryAllUser (Callback)
 function queryUser (Callback)
 {
     var json = '';
-    connection.query("SELECT * FROM game1.user WHERE Name ='"+putname+"';",function(err ,rows,fields)
+    connection.query("SELECT * FROM Game1.user WHERE Name ='"+putname+"';",function(err ,rows,fields)
 {
     if(err)throw err;
     json = JSON.stringify(rows);
