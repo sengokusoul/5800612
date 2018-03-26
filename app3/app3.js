@@ -21,7 +21,19 @@ var connection = mysql.createConnection({
         }
         console.log('Connected as id',connection.threadId);
     })
+    app.get ('/user/add/user',function(req,res)
+    {
+        var Name = req.query.Name;
+        var Pasword = req.query.Pasword;
 
+        var user =[[Name,Pasword]];
+        queryAddUser(user,function(err,result)
+        {
+            res.end(result);
+        });
+      //  res.end(Name+Pasword);
+      //  http://localhost:8081/user/add/user?Name=Lolo&Pasword=5231
+    });
 app.get ('/users',function(req,res)
 {
 //res.end('hello');
@@ -101,6 +113,22 @@ function queryUser (Callback)
     if(err)throw err;
     json = JSON.stringify(rows);
     Callback(null,json);
+    
+});
+}
+function queryAddUser (user,Callback)
+{
+    var sql = 'INSERT INTO user(Name,Pasword) values ?';
+    connection.query(sql,[user],
+        function(err){
+            var result = '[{"success":"true"}]'
+            
+    if(err)
+    {
+        var result = '[{"success":"false"}]'
+        throw err;
+    }
+    Callback(null,null);
     
 });
 }
