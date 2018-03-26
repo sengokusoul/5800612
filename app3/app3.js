@@ -30,18 +30,52 @@ queryAllUser(function(err,result)
     res.end(result);
 });
 });
-
 app.get ('/user/:Name',function(req,res)
 {
 //res.end('hello');
 var Name = req.params.Name;
+putname = req.params.Name;
 console.log(Name);
 queryUser(function(err,result)
 {
     res.end(result);
 });
 });
-
+/*
+app.get ('/user/Jay',function(req,res)
+{
+//res.end('hello');
+var Name = req.params.Name;
+putname = 'Jay';
+console.log(Name);
+queryUser(function(err,result)
+{
+    res.end(result);
+});
+});
+app.get ('/user/Jack',function(req,res)
+{
+//res.end('hello');
+var Name = req.params.Name;
+putname = 'Jack';
+console.log(Name);
+queryUser(function(err,result)
+{
+    res.end(result);
+});
+});
+app.get ('/user/Jj',function(req,res)
+{
+//res.end('hello');
+var Name = req.params.Name;
+putname = 'Jj';
+console.log(Name);
+queryUser(function(err,result)
+{
+    res.end(result);
+});
+});
+*/
 var server = app.listen (8081,function()
 {
     console.log('Server: Running');
@@ -62,7 +96,7 @@ function queryAllUser (Callback)
 function queryUser (Callback)
 {
     var json = '';
-    connection.query("SELECT * FROM game1.user WHERE Name ='"+Name+"';",function(err ,rows,fields)
+    connection.query("SELECT * FROM game1.user WHERE Name ='"+putname+"';",function(err ,rows,fields)
 {
     if(err)throw err;
     json = JSON.stringify(rows);
