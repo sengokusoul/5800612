@@ -6,6 +6,7 @@ var mysql = require('mysql');
 
 var connection = mysql.createConnection({
     host:'game1.cuvupigs22zy.ap-south-1.rds.amazonaws.com',
+   //host:'localhost',
     user:'root',
     password:'0851408244ss',
     database:'Game1'
@@ -42,6 +43,15 @@ queryAllUser(function(err,result)
     res.end(result);
 });
 });
+
+app.get ('/Topusers',function(req,res)
+{
+//res.end('hello');
+queryTopTenUser(function(err,result)
+{
+    res.end(result);
+});
+});
 app.get ('/user/:Name',function(req,res)
 {
 //res.end('hello');
@@ -49,6 +59,18 @@ var Name = req.params.Name;
 putname = req.params.Name;
 console.log(Name);
 queryUser(function(err,result)
+{
+    res.end(result);
+});
+});
+
+app.get ('/userpass/:Name',function(req,res)
+{
+//res.end('hello');
+var Name = req.params.Name;
+putname = req.params.Name;
+console.log(Name);
+queryCheckUser(function(err,result)
 {
     res.end(result);
 });
@@ -96,7 +118,7 @@ var server = app.listen (8081,function()
 function queryAllUser (Callback)
 {
     var json = '';
-    connection.query('SELECT * FROM Game1.user',function(err ,rows,fields)
+    connection.query('SELECT * FROM user',function(err ,rows,fields)
 {
     if(err)throw err;
     json = JSON.stringify(rows);
@@ -108,7 +130,7 @@ function queryAllUser (Callback)
 function queryUser (Callback)
 {
     var json = '';
-    connection.query("SELECT * FROM Game1.user WHERE Name ='"+putname+"';",function(err ,rows,fields)
+    connection.query("SELECT * FROM user WHERE Name ='"+putname+"';",function(err ,rows,fields)
 {
     if(err)throw err;
     json = JSON.stringify(rows);
@@ -118,7 +140,7 @@ function queryUser (Callback)
 }
 function queryAddUser (user,Callback)
 {
-    var sql = 'INSERT INTO user(Name,Pasword) values ?';
+    var sql = 'INSERT INTO user (Name,Pasword) values ?';
     connection.query(sql,[user],
         function(err){
             var result = '[{"success":"true"}]'
@@ -129,6 +151,29 @@ function queryAddUser (user,Callback)
         throw err;
     }
     Callback(null,null);
+    
+});
+}
+function queryCheckUser (Callback)
+{
+    var json = '';
+    connection.query("SELECT *  FROM user  WHERE Name ='"+putname+"';",function(err ,rows,fields)
+{
+    if(err)throw err;
+    json = JSON.stringify(rows);
+    Callback(null,json);
+    
+});
+}
+
+function queryTopTenUser (Callback)
+{
+    var json = '';
+    connection.query('SELECT Name,Score FROM user ORDER BY length(Score) DESC , Score DESC LIMIT 10;',function(err ,rows,fields)
+{
+    if(err)throw err;
+    json = JSON.stringify(rows);
+    Callback(null,json);
     
 });
 }
