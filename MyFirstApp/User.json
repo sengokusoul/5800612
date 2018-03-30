@@ -1,0 +1,18 @@
+{
+    "user1":
+    {
+        "name":"Tony",
+        "Password":"123456",
+        "score":555,
+        "id":1
+    },
+    "user2":
+    {
+        "name":"Ja",
+        "Password":"Ss569sa",
+        "score":456,
+        "id":2
+    }
+
+
+}
